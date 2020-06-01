@@ -1,13 +1,18 @@
 <template>
-  <div>123</div>
+  <div>
+    <router-view />
+  </div>
 </template>
 
 <script>
 export default {
-
-}
+  data() {
+    return {
+      userLogin: false
+    };
+  }
+};
 </script>
 
 <style>
-
 </style>

@@ -1,0 +1,106 @@
+@themeDark: #282c37;
+@themeGrey: #9baec8;
+@themeWhite: #d9e1e8;
+@themeBlue: #2b90d9;
+
+* {
+    font-size: 14px;
+}
+
+.element-height {
+    height: 42px;
+    line-height: 42px;
+}
+
+.moblie-height {
+    height: 36px;
+    line-height: 36px;
+}
+
+.normal-shadow {
+    box-shadow: 1px 5px 8px 3px rgba(154, 154, 154, 0.3);
+}
+
+.small-shadow {
+    box-shadow: 1px 1px 3px 1px rgba(154, 154, 154, 0.3);
+}
+
+.hero-font {
+    font-size: 2.1rem;
+    font-weight: 600;
+}
+
+.super-font {
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
+
+.btn-grounp {
+    margin-top: 65px;
+
+    .ivu-btn {
+        margin-bottom: 8px;
+        .element-height
+    }
+}
+
+
+
+.small-btn {
+    .element-height
+}
+
+.handle-input {
+    .ivu-input {
+        .element-height
+    }
+
+    .ivu-input-icon {
+        .element-height
+    }
+}
+
+.ivu-layout-sider-children {
+    text-align: center !important;
+}
+
+.ivu-avatar {
+    .ivu-icon {
+        font-size: 26px !important;
+    }
+}
+
+@media (min-device-width:300px) and (max-device-width:768px) {
+    * {
+        font-size: 12px;
+    }
+
+    .btn-grounp {
+        margin-top: 38px;
+
+        .ivu-btn {
+            margin-bottom: 8px;
+            .moblie-height
+        }
+    }
+
+    .ivu-layout-sider-trigger {
+        display: none;
+    }
+
+    .small-btn {
+        .moblie-height
+    }
+
+    .handle-input {
+        .ivu-input {
+            .moblie-height
+        }
+
+        .ivu-input-icon {
+            .moblie-height
+        }
+    }
+
+}
