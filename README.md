@@ -1,4 +1,4 @@
-# mobile-rent
+# moblie-rent
 
 ## Project setup
 ```
