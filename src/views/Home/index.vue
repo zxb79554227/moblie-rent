@@ -2,7 +2,9 @@
   <div class="layout">
     <Layout :style="{minHeight: '100vh'}">
       <Sider collapsible :collapsed-width="78" v-model="isCollapsed" id="sidebar">
-        <Avatar size="large">{{userInfo.userName?userInfo.userName:'用户'}}</Avatar>
+        <div @click="toUser">
+          <Avatar size="large">{{userInfo.userName?userInfo.userName:'用户'}}</Avatar>
+        </div>
         <Tag :color="userInfo.tagColor">{{userInfo.identity}}</Tag>
         <Menu
           :active-name="activeItem"
@@ -34,7 +36,9 @@
         :class="menuitemClasses"
         @on-select="checkActive"
       >
-        <Avatar icon="ios-person" />
+         <div @click="toUser" class="avatar-box">
+          <Avatar icon="ios-person" />
+         </div>
         <Tag :color="userInfo.tagColor">{{userInfo.identity}}</Tag>
         <div class="layout-nav">
           <MenuItem name="order">
@@ -89,8 +93,9 @@ export default {
   },
   watch: {
     activeItem(newValue) {
+      console.log(newValue);
       if (this.accessability === 3) {
-        this.navigatingTo(newValue);
+        this.navigatingTo(`/${newValue}`)
       }
     }
   },
@@ -101,8 +106,10 @@ export default {
   },
   methods: {
     checkActive(e) {
-      console.log(e);
       this.activeItem = e;
+    },
+    toUser(){
+      this.activeItem = 'user'
     }
   }
 };
@@ -182,6 +189,10 @@ export default {
   }
   .layout-nav {
     display: inline;
+  }
+  .avatar-box{
+    display: flex;
+    justify-items: center;
   }
   .layout {
     border: none;

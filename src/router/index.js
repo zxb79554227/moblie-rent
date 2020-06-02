@@ -44,6 +44,22 @@ const routes = [
               require(['../views/notify/index.vue'], resolve)
             }
           },
+          {
+            path:'/user',
+            name:'User',
+            component: function(resolve){
+              require(['../views/user/index.vue'], resolve)
+            },
+            children:[
+              {
+                path:'/user/setpassword',
+                name:'Setpassword',
+                component: function(resolve){
+                  require(['../views/user/Setpassword.vue'], resolve)
+                },
+              }
+            ]
+          }
         ]
       }
     ]

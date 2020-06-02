@@ -46,6 +46,7 @@ export default {};
     flex-direction: column;
     .ivu-btn {
       margin: 20px 0 20px 0;
+      max-width: 160px;
       .element-height;
     }
   }
@@ -72,6 +73,7 @@ export default {};
     .btn-grounp-account {
       .ivu-btn {
         margin: 0;
+          max-width: 100%;
         margin-bottom: 5px;
         .element-height;
       }
