@@ -149,9 +149,9 @@ export default {
     padding: 32px 24px;
   }
   .ivu-tag {
-    width: 75%;
-    height: 36px;
-    line-height: 36px;
+    width: 86px;
+    height: 32px;
+    line-height: 32px;
   }
 }
 .menu-item i {

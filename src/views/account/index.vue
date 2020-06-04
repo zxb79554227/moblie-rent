@@ -2,23 +2,39 @@
   <div class="account">
     <div class="balance">
       <Row>
-        <Col :md="{span:24}" :lg="{span:10}" class="outbox">
+        <Col :md="{span:24}" :lg="{span:8}" class="outbox">
           <Card>
-            <p slot="title">账户余额</p>
+            <div class="card-header">
+              账户余额
+              <div class="card-grounp-account">
+                <Button type="success" long>充值</Button>
+                <Button type="error" long>提款</Button>
+              </div>
+            </div>
             <div class="card-content">123.00</div>
           </Card>
         </Col>
-        <Col :md="{span:24}" :lg="{span:10}" class="outbox">
+        <Col :md="{span:24}" :lg="{span:8}" class="outbox">
           <Card>
-            <p slot="title">银行管理</p>
-            <p class="card-content">卡号:237y289...1312o38i</p>
+            <div class="card-header">
+              银行管理
+              <div class="card-grounp-account">
+                <Button type="success" long>添加</Button>
+                <Button type="error" long>删除</Button>
+              </div>
+            </div>
+            <div class="card-content">卡号:237y289...1312o38i</div>
           </Card>
         </Col>
-        <Col :md="{span:24}" :lg="{span:4}" class="outbox">
-          <div class="btn-grounp-account">
-            <Button type="success" long>充值</Button>
-            <Button type="error" long>提款</Button>
-          </div>
+        <Col :md="{span:24}" :lg="{span:8}" class="outbox">
+          <Card>
+            <div class="card-header">
+              <div class="card-grounp-account">
+                <Button type="success" long>更改</Button>
+              </div>利率设置
+            </div>
+            <div class="card-content">15%</div>
+          </Card>
         </Col>
       </Row>
     </div>
@@ -40,6 +56,23 @@ export default {};
     height: 165px;
     padding: 15px 25px;
     box-sizing: border-box;
+  }
+  .card-header {
+    border-bottom: 1px solid @themeWhite;
+    font-size: 1.25rem;
+    padding: 0px 0px 15px 0;
+    font-weight: 600;
+    position: relative;
+  }
+  .card-grounp-account {
+    display: flex;
+    position: absolute;
+    top: -3px;
+    right: 0px;
+    .ivu-btn {
+      width: 65px;
+      margin-right: 5px;
+    }
   }
   .btn-grounp-account {
     display: flex;
@@ -73,7 +106,7 @@ export default {};
     .btn-grounp-account {
       .ivu-btn {
         margin: 0;
-          max-width: 100%;
+        max-width: 100%;
         margin-bottom: 5px;
         .element-height;
       }
