@@ -95,25 +95,5 @@ export default {};
   margin-top: 45px;
 }
 @media (min-device-width: 300px) and (max-device-width: 768px) {
-  .account {
-    .outbox {
-      height: 145px;
-      padding: 15px 5px;
-      box-sizing: border-box;
-      margin-bottom: 35px;
-    }
-    padding: 25px 35px;
-    .btn-grounp-account {
-      .ivu-btn {
-        margin: 0;
-        max-width: 100%;
-        margin-bottom: 5px;
-        .element-height;
-      }
-    }
-  }
-  .history {
-    margin-top: 0px;
-  }
 }
 </style>

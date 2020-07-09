@@ -1,78 +1,15 @@
 <template>
   <div class="layout">
-    <Layout :style="{minHeight: '100vh'}">
-      <Sider collapsible :collapsed-width="78" v-model="isCollapsed" id="sidebar">
-        <div @click="toUser">
-          <Avatar size="large">{{userInfo.userName?userInfo.userName:'用户'}}</Avatar>
-        </div>
-        <Tag :color="userInfo.tagColor">{{userInfo.identity}}</Tag>
-        <Menu
-          :active-name="activeItem"
-          theme="dark"
-          width="100%"
-          :class="menuitemClasses"
-          @on-select="checkActive"
-        >
-          <MenuItem name="order">
-            <Icon type="ios-cart"></Icon>
-            <span>我的订单</span>
-          </MenuItem>
-          <MenuItem name="account">
-            <Icon type="ios-card"></Icon>
-            <span>我的账户</span>
-          </MenuItem>
-          <MenuItem name="notify">
-            <Icon type="md-notifications" />
-            <span>我的通知</span>
-          </MenuItem>
-        </Menu>
-      </Sider>
-      <Menu
-        :active-name="activeItem"
-        mode="horizontal"
-        theme="dark"
-        id="moblie-bar"
-        width="100%"
-        :class="menuitemClasses"
-        @on-select="checkActive"
-      >
-         <div @click="toUser" class="avatar-box">
-          <Avatar icon="ios-person" />
-         </div>
-        <Tag :color="userInfo.tagColor">{{userInfo.identity}}</Tag>
-        <div class="layout-nav">
-          <MenuItem name="order">
-            <Icon type="ios-cart"></Icon>
-          </MenuItem>
-          <MenuItem name="account">
-            <Icon type="ios-card"></Icon>
-          </MenuItem>
-          <MenuItem name="notify">
-            <Icon type="md-notifications" />
-          </MenuItem>
-        </div>
-      </Menu>
-      <Layout>
-        <!-- <Header :style="{background: '#fff', boxShadow: '0 2px 3px 2px rgba(0,0,0,.1)'}">123123123</Header>
-        <Content :style="{padding: '0 16px 16px'}">
-          <Breadcrumb :style="{margin: '16px 0'}">
-            <BreadcrumbItem>Home</BreadcrumbItem>
-            <BreadcrumbItem>Components</BreadcrumbItem>
-            <BreadcrumbItem>Layout</BreadcrumbItem>
-          </Breadcrumb>
-          <Card>
-            <div style="height: 600px">Content</div>
-          </Card>
-        </Content>-->
-        <div class="child-page">
-          <div v-if="accessability === 0">申请角色</div>
-          <div v-else-if="accessability === 1">等待审核</div>
-          <div v-else>
-            <router-view></router-view>
-          </div>
-        </div>
-      </Layout>
-    </Layout>
+    <div v-if="accessability ===1">
+      <div class="contianer">
+        <div>为了确保交易安全请提交用户资料，完成注册</div>
+        <Steps :current="0" class="step">
+          <Step title="合同提交" content="下载填写，并且上传需要的合同"></Step>
+          <Step title="用户信息" content="选择用户身份，并且完善用户的详细信息"></Step>
+          <Step title="提交内容" content="提交申请内容,等待后台审核"></Step>
+        </Steps>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -95,7 +32,7 @@ export default {
     activeItem(newValue) {
       console.log(newValue);
       if (this.accessability === 3) {
-        this.navigatingTo(`/${newValue}`)
+        this.navigatingTo(`/${newValue}`);
       }
     }
   },
@@ -108,8 +45,8 @@ export default {
     checkActive(e) {
       this.activeItem = e;
     },
-    toUser(){
-      this.activeItem = 'user'
+    toUser() {
+      this.activeItem = "user";
     }
   }
 };
@@ -164,7 +101,16 @@ export default {
   width: 0px;
   transition: width 0.2s ease;
 }
-
+.contianer {
+  height: 100vh;
+  width: 80%;
+  margin: 0 auto;
+  .step {
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 6rem;
+  }
+}
 .collapsed-menu i {
   transform: translateX(5px);
   transition: font-size 0.2s ease 0.2s, transform 0.2s ease 0.2s;
@@ -182,56 +128,5 @@ export default {
   width: 58px;
   height: 58px;
   line-height: 58px;
-}
-@media (min-device-width: 300px) and (max-device-width: 768px) {
-  #sidebar {
-    display: none;
-  }
-  .layout-nav {
-    display: inline;
-  }
-  .avatar-box{
-    display: flex;
-    justify-items: center;
-  }
-  .layout {
-    border: none;
-    background: #515a6e;
-  }
-  .ivu-avatar {
-    margin-left: 32px;
-  }
-  #moblie-bar {
-    position: fixed;
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .menu-item span {
-    height: 32px;
-    width: 32px;
-  }
-  .ivu-tag {
-    margin: 0 55px 0 0;
-  }
-  .ivu-layout-header {
-    border: none;
-    margin-top: 60px;
-  }
-  .child-page {
-    margin-top: 60px;
-  }
-  .ivu-menu-vertical .ivu-menu-item,
-  .ivu-menu-vertical .ivu-menu-submenu-title {
-    padding: 0 24px;
-  }
-  .ivu-menu-dark.ivu-menu-horizontal .ivu-menu-item-active,
-  .ivu-menu-dark.ivu-menu-horizontal .ivu-menu-item:hover,
-  .ivu-menu-dark.ivu-menu-horizontal .ivu-menu-submenu-active,
-  .ivu-menu-dark.ivu-menu-horizontal .ivu-menu-submenu:hover {
-    background-color: #363e4f;
-    color: #2d8cf0;
-  }
 }
 </style>

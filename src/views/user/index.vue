@@ -1,8 +1,8 @@
 <template>
   <div class="user">
     <Row>
-      <Col :md="{span:24}" :lg="{span:12}" :xl="{span:8}">
-        <Card title="用户资料" icon="ios-options" :padding="0" shadow style="width: 100%;">
+      <Col :md="{span:24}" :lg="{span:11}">
+        <Card title="用户资料" icon="ios-options" :padding="0" shadow class="user-card">
           <CellGroup>
             <Cell title="联系人手机号码">
               <span slot="extra">182****3231</span>
@@ -16,13 +16,13 @@
           </CellGroup>
         </Card>
       </Col>
-      <Col :md="{span:24}" :lg="{span:10,offset: 2}" :xl="{span:8,offset:2}" class="second-col">
+      <Col :md="{span:24}" :lg="{span:12,offset: 1}" class="second-col">
         <router-view></router-view>
       </Col>
     </Row>
-    <div class="show-box">
+    <!-- <div class="show-box">
       <Divider orientation="left">证件</Divider>
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -35,13 +35,9 @@ export default {
 <style lang="less" scoped>
 .user {
   padding: 60px 45px;
-}
-@media (min-device-width: 300px) and (max-device-width: 768px) {
-  .user {
-    padding: 25px 35px;
-  }
-  .second-col {
-    margin-top: 25px;
+  .user-card {
+    height: 90%;
+    width: 100%;
   }
 }
 </style>

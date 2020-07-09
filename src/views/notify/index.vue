@@ -16,8 +16,6 @@ export default {};
   padding: 60px 45px;
 }
 @media (min-device-width: 300px) and (max-device-width: 768px) {
-  .notify {
-    padding: 25px 35px;
-  }
+
 }
 </style>

@@ -1,11 +1,14 @@
-@themeDark: #282c37;
-@themeGrey: #9baec8;
-@themeWhite: #d9e1e8;
-@themeBlue: #2b90d9;
-
 * {
     font-size: 14px;
+    font-family: "PingHei SC", "Helvetica Neue", "Helvetica", "Arial", "Verdana", "sans-serif";
 }
+
+@themeDark: #3A4856;
+@themeGrey: #9EADBD;
+@themeWhite: #F0F4F8;
+@themeBlue: #3CACF2;
+@themeRed: #FF7483;
+@themeGreen: #40C9B7;
 
 .element-height {
     height: 42px;
@@ -18,7 +21,11 @@
 }
 
 .normal-shadow {
-    box-shadow: 1px 5px 8px 3px rgba(154, 154, 154, 0.3);
+    box-shadow: 3px 2px 8px 3px #F0F4F8
+}
+
+.hover-shadow {
+    box-shadow: 5px 5px 8px 5px #E0E1E2;
 }
 
 .small-shadow {
@@ -35,73 +42,74 @@
     font-weight: 500;
 }
 
+.title-font {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
 
-.btn-grounp {
-    margin-top: 65px;
+.subTitle-font {
+    font-size: 1.25rem;
+    font-weight: 500;
+}
 
-    .ivu-btn {
-        margin-bottom: 8px;
-        .element-height
-    }
+.normal-font {
+    font-size: 1.05rem;
+    font-weight: 500;
+}
+
+.tip-font {
+    font-style: italic;
+    font-size: 0.75rem;
+    font-weight: 400;
 }
 
 
-
-.small-btn {
-    .element-height
+.text-dark {
+    color: @themeDark;
 }
 
-.handle-input {
-    .ivu-input {
-        .element-height
-    }
-
-    .ivu-input-icon {
-        .element-height
-    }
+.text-grey {
+    color: @themeGrey;
 }
 
-.ivu-layout-sider-children {
-    text-align: center !important;
+.text-white {
+    color: @themeWhite;
 }
 
-.ivu-avatar {
-    cursor: pointer;
-    .ivu-icon {
-        font-size: 26px !important;
-    }
+.text-blue {
+    color: @themeBlue;
 }
 
-@media (min-device-width:300px) and (max-device-width:768px) {
-    * {
-        font-size: 12px;
-    }
-
-    .btn-grounp {
-        margin-top: 38px;
-
-        .ivu-btn {
-            margin-bottom: 8px;
-            .moblie-height
-        }
-    }
-
-    .ivu-layout-sider-trigger {
-        display: none;
-    }
-
-    .small-btn {
-        .moblie-height
-    }
-
-    .handle-input {
-        .ivu-input {
-            .moblie-height
-        }
-
-        .ivu-input-icon {
-            .moblie-height
-        }
-    }
-
+.text-red {
+    color: @themeRed;
 }
+
+.text-green {
+    color: @themeGreen;
+}
+
+.bg-dark {
+    background-color: @themeDark;
+}
+
+.bg-grey {
+    background-color: @themeGrey;
+}
+
+.bg-white {
+    background-color: @themeWhite;
+}
+
+.bg-blue {
+    background-color: @themeBlue;
+}
+
+.bg-red {
+    background-color: @themeRed;
+}
+
+.bg-green {
+    background-color: @themeGreen;
+}
+
+@import url('./medias/main.less');

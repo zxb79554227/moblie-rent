@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Index from '../views'
 import Login from '../views/Login'
-
+import Apply from '../views/Apply'
 Vue.use(VueRouter)
 
 const routes = [
@@ -17,6 +17,11 @@ const routes = [
         component: Login
       },
       {
+        path:'/apply',
+        name:'Apply',
+        component:Apply
+      },
+      {
         path:'/home',
         name:'Home',
         component: function(resolve){
@@ -27,39 +32,24 @@ const routes = [
             path:'/order',
             name:'Order',
             component: function(resolve){
-              require(['../views/order/index.vue'], resolve)
+              require(['../views/Order/index.vue'], resolve)
             }
           },
           {
             path:'/account',
             name:'Account',
             component: function(resolve){
-              require(['../views/account/index.vue'], resolve)
+              require(['../views/Account/index.vue'], resolve)
             }
           },
           {
             path:'/notify',
             name:'Notify',
             component: function(resolve){
-              require(['../views/notify/index.vue'], resolve)
+              require(['../views/Notify/index.vue'], resolve)
             }
           },
-          {
-            path:'/user',
-            name:'User',
-            component: function(resolve){
-              require(['../views/user/index.vue'], resolve)
-            },
-            children:[
-              {
-                path:'/user/setpassword',
-                name:'Setpassword',
-                component: function(resolve){
-                  require(['../views/user/Setpassword.vue'], resolve)
-                },
-              }
-            ]
-          }
+
         ]
       }
     ]

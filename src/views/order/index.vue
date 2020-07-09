@@ -20,9 +20,4 @@ export default {};
 .order {
   padding: 60px 45px;
 }
-@media (min-device-width: 300px) and (max-device-width: 768px) {
-  .order {
-    padding: 25px 35px;
-  }
-}
 </style>

@@ -1,64 +1,56 @@
 <template>
   <div class="login-box">
     <div class="login-pannel">
-      <div class="flow-title super-font">{{account.accountRegister === false? '登录':'注册'}}</div>
+      <div class="flow-title subTitle-font text-dark">{{existUser === 2? '注册':'登录'}}</div>
       <div id="login" v-if="account.accountRegister == false">
         <div class="handle-input">
-          <div class="label">账号</div>
-          <Input v-model="account.accountNmae" :placeholder="account.accountHolder" clearable />
-        </div>
-        <div class="handle-input">
-          <div class="label">密码</div>
           <Input
-            v-model="account.passWord"
-            :placeholder="account.passHolder"
-            type="password"
-            clearable
-          />
+            v-model="account.accountNumber"
+            :placeholder="account.accountHolder"
+            type="tel"
+            maxlength="11"
+            @on-change="accountInput"
+            :class="verifyStyle"
+          >
+            <span slot="prepend">{{account.countryCode}}</span>
+          </Input>
+          <div class="formError" v-if="account.formError">{{account.formErrorText}}</div>
         </div>
-        <div class="forgot">忘记密码，点我找回</div>
-        <div class="btn-grounp">
-          <Button type="primary" long @click="loginSubmit">登录</Button>
-          <Button long @click="toggleRegister">注册</Button>
+        <div class="handle-input" v-if="existUser === 1 || existUser ===2">
+          <Input v-model="account.passWord" :placeholder="account.passHolder" type="password" />
         </div>
-      </div>
-      <div id="register" v-else>
-        <div class="handle-input">
-          <div class="label">账号</div>
-          <Input v-model="account.accountNmae" :placeholder="account.accountHolder" clearable />
-        </div>
-        <div class="handle-input">
-          <div class="label">密码</div>
-          <Input
-            v-model="account.passWord"
-            :placeholder="account.passHolder"
-            type="password"
-            clearable
-          />
-        </div>
-        <div class="handle-input">
-          <div class="label">确认密码</div>
+        <div class="handle-input" v-if="existUser === 2">
           <Input
             v-model="account.confirmPassWord"
             :placeholder="account.confirmPassHolder"
             type="password"
-            clearable
           />
         </div>
-        <div class="handle-input">
-          <div class="label">验证码</div>
-          <Row>
-            <Col span="14" type="flex">
+        <div class="handle-input" v-if="existUser === 3 || existUser ===2">
+          <Row type="flex" justify="center" align="middle">
+            <Col span="17">
               <Input v-model="account.msg" :placeholder="account.msgHolder" />
             </Col>
-            <Col span="6" offset="4">
-              <Button type="primary" class="small-btn">验证码</Button>
+            <Col span="6" offset="1" :class="countDown>0 && countDown<30?'msg-btn-actived':''">
+              <Button
+                type="primary"
+                class="small-btn"
+                @click="getMsg"
+              >{{countDown === 30?'验证码':countDown}}</Button>
             </Col>
           </Row>
         </div>
+        <div class="forgot text-grey" v-if="existUser === 1" @click="forgetPass">忘记密码，点我找回</div>
         <div class="btn-grounp">
-          <Button type="primary" long>确认注册</Button>
-          <Button long @click="toggleRegister">取消</Button>
+          <Button type="primary" long @click="loginSubmit" v-if="existUser === 1">登录</Button>
+          <Button type="primary" long @click="toggleRegister" v-if="existUser === 2">注册</Button>
+          <Button
+            type="primary"
+            long
+            @click="cancelRecover"
+            v-if="existUser === 3 || existUser === 2"
+            class="cancel-btn"
+          >取消</Button>
         </div>
       </div>
     </div>
@@ -81,9 +73,12 @@ export default {
   data() {
     return {
       account: {
-        accountName: "",
-        accountHolder: "请输入您的账户",
+        accountNumber: "",
+        accountHolder: "请输入您的手机号码",
+        countryCode: "+86",
         passWord: "",
+        formError: false,
+        formErrorText: "请输入正确的手机格式",
         passHolder: "请输入您的密码",
         flowTitle: "登录",
         confirmPassWord: "",
@@ -91,8 +86,21 @@ export default {
         accountRegister: false,
         msg: "",
         msgHolder: "验证码输入"
-      }
+      },
+      verifyStyle: "",
+      existUser: 0,
+      msgActived: false,
+      countDown: 30
     };
+  },
+  watch: {
+    countDown(newV) {
+      console.log(newV);
+      if (newV === 0) {
+        this.countDown = 30;
+        clearInterval(this.count);
+      }
+    }
   },
   methods: {
     toggleRegister() {
@@ -107,90 +115,53 @@ export default {
     },
     loginSubmit() {
       sessionStorage.token = "123123123123";
-      this.navigatingTo("/home");
+      this.navigatingTo("/apply");
+    },
+    forgetPass() {
+      this.existUser = 3;
+    },
+    getMsg(e) {
+      console.log(e);
+
+      if (this.countDown === 30) {
+        this.count = setInterval(() => {
+          if (this.countDown > 0) this.countDown--;
+        }, 1000);
+      }
+    },
+    cancelRecover() {
+      this.existUser = 0;
+      this.account.accountNumber = null;
+      this.account.verifyStyle = "";
+      this.account.passWord = "";
+      this.account.confirmPassWord = "";
+      this.account.msg = "";
+    },
+    accountInput() {
+      var telStr = /^[1]([3-9])[0-9]{9}$/;
+      this.verifyStyle = "";
+      this.existUser = 0;
+      if (this.account.accountNumber.length === 11) {
+        if (!telStr.test(this.account.accountNumber)) {
+          this.verifyStyle = "input-error";
+          this.account.formError = true;
+        } else {
+          this.verifyStyle = "input-verified";
+          //接口查询是否注册并且把结果保存到existUser中:0为没有验证，1为通过验证，2为没有通过验证, 3为通过但是忘记密码
+          this.existUser = 1;
+          if (this.existUser === 1) {
+            console.log("已经注册");
+          } else {
+            this.verifyStyle = "";
+            console.log("新用户");
+          }
+        }
+      } else {
+        this.account.formError = false;
+      }
     }
   }
 };
 </script>
 
-<style lang="less" scoped>
-@import "../../style.less";
-.login-box {
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: @themeGrey;
-}
-.login-pannel {
-  position: relative;
-  // min-height: 370px;
-  min-width: 390px;
-  max-width: 335px;
-  max-height: 650px;
-  box-sizing: border-box;
-  padding: 35px 35px;
-  background-color: @themeWhite;
-  border-radius: 5px;
-  .normal-shadow;
-  .handle-input {
-    margin: 10.5px 0;
-  }
-  .label {
-    margin-bottom: 5px;
-    padding-left: 15px;
-  }
-  .forgot {
-    float: right;
-    margin-right: 12px;
-    cursor: pointer;
-  }
-  .flow-title {
-    height: 60px;
-    width: 50%;
-    position: absolute;
-    background-color: @themeWhite;
-    text-align: center;
-    line-height: 60px;
-    border-radius: 5px;
-    .small-shadow;
-    top: -8%;
-  }
-}
-@media screen and (max-width: 768px) {
-  .login-pannel {
-    min-width: 290px;
-    max-height: 460px;
-    box-sizing: border-box;
-    padding: 15px 10px;
-    background-color: @themeWhite;
-    border-radius: 5px;
-    .normal-shadow;
-    .handle-input {
-      margin: 9.5px 0;
-    }
-    .label {
-      margin-bottom: 5px;
-      padding-left: 10px;
-    }
-    .forgot {
-      float: right;
-      margin-right: 12px;
-      cursor: pointer;
-    }
-    .flow-title {
-      height: 45px;
-      width: 50%;
-      position: absolute;
-      background-color: @themeWhite;
-      text-align: center;
-      line-height: 45px;
-      border-radius: 5px;
-      .small-shadow;
-      top: -8%;
-    }
-  }
-}
-</style>
 
