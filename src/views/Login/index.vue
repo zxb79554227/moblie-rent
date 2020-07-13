@@ -115,7 +115,7 @@ export default {
     },
     loginSubmit() {
       sessionStorage.token = "123123123123";
-      this.navigatingTo("/apply");
+      this.navigatingTo("/home");
     },
     forgetPass() {
       this.existUser = 3;
